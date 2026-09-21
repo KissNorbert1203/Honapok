@@ -81,11 +81,16 @@ function honapkereses(h){
     return index
 }
 
+function honapkereses2(k){
+    let index = Honapok[k-1]
+    return index
+}
+
 function start(){
     document.getElementById("eredmenyHonap").innerHTML = ""
-        document.getElementById("eredmenyEvszak").innerHTML = ""
-        document.getElementById("eredmenyNap").innerHTML = ""
-        document.getElementById("eredmenyUnnep").innerHTML = ""
+    document.getElementById("eredmenyEvszak").innerHTML = ""
+    document.getElementById("eredmenyNap").innerHTML = ""
+    document.getElementById("eredmenyUnnep").innerHTML = ""
     try{
         honapszam = +document.getElementById("beirt").value
         if(isNaN(honapszam)){
@@ -103,4 +108,41 @@ function start(){
     catch (e) {
         document.getElementById("eredmenyHonap").innerHTML = e
     }
+}
+
+let valasztotHonap
+let unnepModositas
+document.getElementById("honapgomb").style.visibility = "hidden"
+document.getElementById("unnepvaltoztatas").style.visibility = "hidden"
+
+function honapkikereses(){
+    document.getElementById("honapgomb").style.visibility = "visible"
+    document.getElementById("unnepvaltoztatas").style.visibility = "visible"
+
+    document.getElementById("eredmenyHonap").innerHTML = ""
+    document.getElementById("eredmenyEvszak").innerHTML = ""
+    document.getElementById("eredmenyNap").innerHTML = ""
+    document.getElementById("eredmenyUnnep").innerHTML = ""
+    try{
+        valasztotHonap = +document.getElementById("honapValasztas").value
+        if(isNaN(honapszam)){
+            throw("Hiba: Nem számot adtál meg!")
+        }
+        else if (honapszam > 12 || honapszam < 1) {
+            throw("Hiba: A hónapszámnak 1 és 12 közé kell esnie!");
+        }
+        let honap = honapkereses2(kereses)
+        document.getElementById("eredmenyHonap").innerHTML = "Hónap: " + honap.honapnev
+        document.getElementById("eredmenyEvszak").innerHTML = "Évszak: " + honap.evszak
+        document.getElementById("eredmenyNap").innerHTML = "Napok száma: " + honap.napszam
+        document.getElementById("eredmenyUnnep").innerHTML = "Ünnep: " + honap.unnep
+    } 
+    catch (e) {
+        document.getElementById("eredmenyHonap").innerHTML = e
+    }
+}
+
+function valtoztatas(){
+    unnepModositas = document.getElementById("honapValasztas").value
+
 }
