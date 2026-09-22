@@ -73,7 +73,6 @@ let Honapok = [
     }
 ]
 
-let honapszam
 document.getElementById("beirt").value = "";
 
 function honapkereses(h){
@@ -81,12 +80,9 @@ function honapkereses(h){
     return index
 }
 
-function honapkereses2(k){
-    let index = Honapok[k-1]
-    return index
-}
-
 function start(){
+    let honap
+    let honapszam
     document.getElementById("eredmenyHonap").innerHTML = ""
     document.getElementById("eredmenyEvszak").innerHTML = ""
     document.getElementById("eredmenyNap").innerHTML = ""
@@ -96,18 +92,26 @@ function start(){
         if(isNaN(honapszam)){
             throw("Hiba: Nem számot adtál meg!")
         }
+        else if(honapszam == ""){
+            throw("Hiba: Nem adtál meg semmit!")
+        }
         else if (honapszam > 12 || honapszam < 1) {
             throw("Hiba: A hónapszámnak 1 és 12 közé kell esnie!");
         }
-        let honap = honapkereses(honapszam)
+        honap = honapkereses(honapszam)
         document.getElementById("eredmenyHonap").innerHTML = "Hónap: " + honap.honapnev
         document.getElementById("eredmenyEvszak").innerHTML = "Évszak: " + honap.evszak
         document.getElementById("eredmenyNap").innerHTML = "Napok száma: " + honap.napszam
         document.getElementById("eredmenyUnnep").innerHTML = "Ünnep: " + honap.unnep
+        document.getElementById("honapgomb").style.visibility = "visible"
+        document.getElementById("unnepvaltoztatas").style.visibility = "visible"
     } 
     catch (e) {
         document.getElementById("eredmenyHonap").innerHTML = e
+        document.getElementById("honapgomb").style.visibility = "hidden"
+        document.getElementById("unnepvaltoztatas").style.visibility = "hidden"
     }
+    return honapszam
 }
 
 let valasztotHonap
@@ -115,34 +119,12 @@ let unnepModositas
 document.getElementById("honapgomb").style.visibility = "hidden"
 document.getElementById("unnepvaltoztatas").style.visibility = "hidden"
 
-function honapkikereses(){
-    document.getElementById("honapgomb").style.visibility = "visible"
-    document.getElementById("unnepvaltoztatas").style.visibility = "visible"
-
-    document.getElementById("eredmenyHonap").innerHTML = ""
-    document.getElementById("eredmenyEvszak").innerHTML = ""
-    document.getElementById("eredmenyNap").innerHTML = ""
-    document.getElementById("eredmenyUnnep").innerHTML = ""
-    try{
-        valasztotHonap = +document.getElementById("honapValasztas").value
-        if(isNaN(honapszam)){
-            throw("Hiba: Nem számot adtál meg!")
-        }
-        else if (honapszam > 12 || honapszam < 1) {
-            throw("Hiba: A hónapszámnak 1 és 12 közé kell esnie!");
-        }
-        let honap = honapkereses2(kereses)
-        document.getElementById("eredmenyHonap").innerHTML = "Hónap: " + honap.honapnev
-        document.getElementById("eredmenyEvszak").innerHTML = "Évszak: " + honap.evszak
-        document.getElementById("eredmenyNap").innerHTML = "Napok száma: " + honap.napszam
-        document.getElementById("eredmenyUnnep").innerHTML = "Ünnep: " + honap.unnep
-    } 
-    catch (e) {
-        document.getElementById("eredmenyHonap").innerHTML = e
-    }
-}
-
 function valtoztatas(){
-    unnepModositas = document.getElementById("honapValasztas").value
-
+    let honapSzam = +document.getElementById("beirt").value;
+    let keresettHonap = honapSzam - 1;
+    let unnepUj = document.getElementById("unnepvaltoztatas").value;
+    if (Honapok[keresettHonap]) {
+        Honapok[keresettHonap].unnep = unnepUj
+    }
+    document.getElementById("eredmenyUnnep").innerHTML = "Ünnep: " + Honapok[keresettHonap].unnep
 }
