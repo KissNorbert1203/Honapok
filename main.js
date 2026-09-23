@@ -72,9 +72,6 @@ let Honapok = [
         unnep : "Karácsony"
     }
 ]
-
-document.getElementById("beirt").value = "";
-
 function honapkereses(h){
     let index = Honapok[h-1]
     return index
@@ -114,8 +111,6 @@ function start(){
     return honapszam
 }
 
-let valasztotHonap
-let unnepModositas
 document.getElementById("honapgomb").style.visibility = "hidden"
 document.getElementById("unnepvaltoztatas").style.visibility = "hidden"
 
